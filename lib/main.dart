@@ -6,7 +6,7 @@ import 'package:temperatureapp/view/firstpage.dart';
 import 'package:temperatureapp/view/forecast_page.dart';
 import 'bloc/bloc_forecast_bloc.dart';
 import 'layers/domain/entities/forecast_model.dart';
-import 'model/forecast_repository.dart';
+import 'layers/domain/entities/repositories/getforecast_repository.dart';
 import 'myapp.dart';
 
 final ForecastsModelEntity forecast = ForecastsModelEntity();

@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:temperatureapp/layers/domain/entities/forecast_model.dart';
 
-class ForecastRepository {
+class FetchForecastRepository {
   final Dio dio;
 
-  ForecastRepository(this.dio);
+  FetchForecastRepository(this.dio);
 
   Future<ForecastsModelEntity> fetchForecast(String city) async {
     ForecastsModelEntity forecast;

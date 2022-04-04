@@ -12,14 +12,6 @@ class ForecastsModelEntity{
       this.forecast,
       this.name = ''});
 
-  String? get getName {
-    return name;
-  }
-
-  set setName(String names) {
-    name = names;
-  }
-
   ForecastsModelEntity.fromJson(Map<String, dynamic> json) {
     temperature = json['temperature'];
     wind = json['wind'];

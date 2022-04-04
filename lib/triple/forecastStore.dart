@@ -1,9 +1,9 @@
 import 'package:mobx_triple/mobx_triple.dart';
 import 'package:temperatureapp/layers/domain/entities/forecast_model.dart';
-import 'package:temperatureapp/model/forecast_repository.dart';
+import 'package:temperatureapp/layers/domain/entities/repositories/getforecast_repository.dart';
 
 class ForecastStore extends MobXStore<Exception, ForecastsModelEntity> {
-  final ForecastRepository repository;
+  final FetchForecastRepository repository;
   ForecastStore(this.repository) : super(ForecastsModelEntity());
 
   Future<void> add(String name) async {
