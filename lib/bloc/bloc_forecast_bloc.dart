@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:temperatureapp/layers/domain/entities/repositories/getforecast_repository.dart';
+import 'package:temperatureapp/layers/domain/entities/data/repositories/getforecast_repository_imp.dart';
 
 import '../layers/domain/entities/forecast_model.dart';
 
@@ -10,7 +10,7 @@ part 'bloc_forecast_event.dart';
 part 'bloc_forecast_state.dart';
 
 class BlocForecastBloc extends Bloc<BlocForecastEvent, BlocForecastState> {
-  final FetchForecastRepository repository;
+  final FetchForecastRepositoryImp repository;
 
   BlocForecastBloc(this.repository) : super(BlocForecastInitial()) {
     on<SearchForecastEvent>((event, emit) async {

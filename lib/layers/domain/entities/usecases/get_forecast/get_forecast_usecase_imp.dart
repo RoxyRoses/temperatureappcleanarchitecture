@@ -1,6 +1,7 @@
 import 'package:temperatureapp/layers/domain/entities/forecast_model.dart';
-import 'package:temperatureapp/layers/domain/entities/repositories/getforecast_repository.dart';
 import 'package:temperatureapp/layers/domain/entities/usecases/get_forecast/get_forecast_usecase.dart';
+
+import '../../repositories/fetchForecast_repository.dart';
 
 class GetForecastUseCaseImp implements GetForecastCityUseCase{
   

@@ -4,14 +4,15 @@ import 'package:temperatureapp/triple/forecastStore.dart';
 import 'package:temperatureapp/view/forecast_page.dart';
 
 import '../bloc/bloc_forecast_bloc.dart';
-import '../layers/domain/entities/repositories/getforecast_repository.dart';
+import '../layers/domain/entities/data/repositories/getforecast_repository_imp.dart';
+import '../layers/domain/entities/repositories/fetchForecast_repository.dart';
 import '../view/firstpage.dart';
 
 class AppModule extends Module {
   
   @override
   final List<Bind> binds = [
-    Bind((i) => FetchForecastRepository(i.get())),
+    Bind((i) => FetchForecastRepositoryImp(i.get())),
     Bind((i) => BlocForecastBloc(i.get())),
     Bind((i) => ForecastStore(i.get())),
     Bind((i) => Dio(BaseOptions(baseUrl: 'https://goweather.herokuapp.com'))),
