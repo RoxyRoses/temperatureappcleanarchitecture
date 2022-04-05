@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:temperatureapp/layers/domain/entities/forecast_model.dart';
 import 'package:bordered_text/bordered_text.dart';
 
+import '../layers/domain/entities/data/dto/forecast_dto.dart';
+
 class ForecastPage extends StatelessWidget {
-  final ForecastsModelEntity forecast;
+  final ForecastModelDto forecast;
 
   const ForecastPage({Key? key, required this.forecast}) : super(key: key);
 
@@ -31,7 +33,7 @@ class ForecastPage extends StatelessWidget {
                     BorderedText(
                       strokeWidth: 5.0,
                       child: Text(
-                        forecast.name,
+                        forecast.nameDto,
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -80,7 +82,7 @@ class ForecastPage extends StatelessWidget {
                     child: BorderedText(
                       strokeWidth: 5.0,
                       child: Text(
-                        forecast.temperature.toString(),
+                        forecast.temperatureDto.toString(),
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -108,7 +110,7 @@ class ForecastPage extends StatelessWidget {
               height: 15,
             ),
             Text(
-              forecast.description.toString(),
+              forecast.descriptionDto.toString(),
               style: TextStyle(
                   color: Colors.white,
                   fontSize: size.height * 18 / size.height),
@@ -130,7 +132,7 @@ class ForecastPage extends StatelessWidget {
               height: 15,
             ),
             Text(
-              forecast.wind.toString(),
+              forecast.windDto.toString(),
               style: TextStyle(
                   color: Colors.white,
                   fontSize: size.height * 18 / size.height),
@@ -146,7 +148,7 @@ class ForecastPage extends StatelessWidget {
                     height: size.height * 190 / size.height,
                     width: size.width * 390 / size.width,
                     child: ListView.builder(
-                      itemCount: forecast.forecast?.length,
+                      itemCount: forecast.forecastDto?.length,
                       physics: const BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (BuildContext context, int index) {
@@ -161,7 +163,7 @@ class ForecastPage extends StatelessWidget {
                                   strokeWidth: 5.0,
                                   child: Text(
                                     'Day ' +
-                                        (forecast.forecast?[index].day ?? 0)
+                                        (forecast.forecastDto?[index].day ?? 0)
                                             .toString(),
                                     style: TextStyle(
                                         color: Colors.white,
@@ -188,7 +190,7 @@ class ForecastPage extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  (forecast.forecast?[index].temperature ?? 0)
+                                  (forecast.forecastDto?[index].temperature ?? 0)
                                       .toString(),
                                   style: TextStyle(
                                       color: Colors.white,
@@ -213,7 +215,7 @@ class ForecastPage extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  (forecast.forecast?[index].wind ?? 0)
+                                  (forecast.forecastDto?[index].wind ?? 0)
                                       .toString(),
                                   style: TextStyle(
                                       color: Colors.white,
@@ -236,48 +238,48 @@ class ForecastPage extends StatelessWidget {
     );
   }
 
-  String changeBackground(ForecastsModelEntity forecast) {
+  String changeBackground(ForecastModelDto forecast) {
     String image;
-    if (forecast.description.toString() == "Partly cloudy") {
+    if (forecast.descriptionDto.toString() == "Partly cloudy") {
       image = 'assets/images/cloudy.gif';
       return image;
     }
-    if (forecast.description.toString() == "Patchy rain possible") {
+    if (forecast.descriptionDto.toString() == "Patchy rain possible") {
       image = 'assets/images/cloudRain.gif';
       return image;
     }
-    if (forecast.description.toString() == "Sunny") {
+    if (forecast.descriptionDto.toString() == "Sunny") {
       image = 'assets/images/sunny.gif';
       return image;
     }
-    if (forecast.description.toString() == "Clear") {
+    if (forecast.descriptionDto.toString() == "Clear") {
       image = 'assets/images/clear.gif';
       return image;
     }
     return 'assets/images/cloudy.gif';
   }
 
-  Color changeColor(ForecastsModelEntity forecast) {
-    if (forecast.description.toString() == "Partly cloudy") {
+  Color changeColor(ForecastModelDto forecast) {
+    if (forecast.descriptionDto.toString() == "Partly cloudy") {
       return Colors.grey;
     }
-    if (forecast.description.toString() == "Clear") {
+    if (forecast.descriptionDto.toString() == "Clear") {
       return Colors.blue;
     }
-    if (forecast.description.toString() == "Patchy rain possible") {
+    if (forecast.descriptionDto.toString() == "Patchy rain possible") {
       return Colors.grey;
     }
-    if (forecast.description.toString() == "Light rain shower") {
+    if (forecast.descriptionDto.toString() == "Light rain shower") {
       return Colors.grey;
     }
-    if (forecast.description.toString() == "Sunny") {
+    if (forecast.descriptionDto.toString() == "Sunny") {
       return Colors.yellow;
     }
     return Colors.white;
   }
 
-  returnDay(ForecastsModelEntity forecast) {
-    forecast.forecast?.forEach((element) {
+  returnDay(ForecastModelDto forecast) {
+    forecast.forecastDto?.forEach((element) {
       print(element.day);
     });
   }

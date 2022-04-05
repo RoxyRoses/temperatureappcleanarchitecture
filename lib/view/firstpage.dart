@@ -21,7 +21,7 @@ class _FirstPageState extends State<FirstPage> {
   void initState() {
     store.observer(
       onState: (state) {
-        if (state.name.isNotEmpty) {
+        if (state.nameDto.isNotEmpty) {
           Modular.to.navigate('/forecast', arguments: state);
         }
       },
