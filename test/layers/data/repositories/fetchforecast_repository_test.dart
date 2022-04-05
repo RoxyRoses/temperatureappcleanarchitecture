@@ -2,10 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:temperatureapp/layers/domain/entities/forecast_model.dart';
 import 'package:temperatureapp/layers/domain/entities/repositories/fetchForecast_repository.dart';
-import 'package:temperatureapp/layers/domain/entities/usecases/get_forecast/get_forecast_usecase.dart';
-import 'package:temperatureapp/layers/domain/entities/usecases/get_forecast/get_forecast_usecase_imp.dart';
 
-class FetchForecastRepositoryImp implements FetchForecastRepository {
+class FetchForecastRepositoryImp implements FetchForecastRepository{
   @override
   Future<ForecastsModelEntity> fetchForecast(String city) async {
     ForecastsModelEntity forecast;
@@ -22,19 +20,14 @@ class FetchForecastRepositoryImp implements FetchForecastRepository {
       throw Exception('Failed to load forecast');
     }
   }
+
 }
+main(){
+  FetchForecastRepository repository = FetchForecastRepositoryImp();
 
-void main() {
-  test('Should return the forecast', () {
-    GetForecastCityUseCase useCase = GetForecastUseCaseImp(
-      FetchForecastRepositoryImp(),
-    );
+  test('return forecast', (){
+    var result = repository.fetchForecast('Texas');
 
-    var result = useCase.fetchForecast('Texas');
-
-    expect(
-      result,
-      isInstanceOf<Future<ForecastsModelEntity>>(),
-    );
+    expect(result, isNotNull);
   });
 }

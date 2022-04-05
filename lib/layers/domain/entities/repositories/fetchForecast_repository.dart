@@ -1,3 +1,5 @@
+import '../forecast_model.dart';
+
 abstract class FetchForecastRepository{
-  Future fetchForecast(String city);
+  Future<ForecastsModelEntity> fetchForecast(String city);
 }

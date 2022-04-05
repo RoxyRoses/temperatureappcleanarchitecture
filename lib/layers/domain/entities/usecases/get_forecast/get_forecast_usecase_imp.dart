@@ -11,8 +11,6 @@ class GetForecastUseCaseImp implements GetForecastCityUseCase{
   
   @override
   Future<ForecastsModelEntity> fetchForecast(String city) async {
-   var result = await _fetchForecastRepository.fetchForecast(city);
-   return result;
+   return await _fetchForecastRepository.fetchForecast(city);
   }
-
 }
