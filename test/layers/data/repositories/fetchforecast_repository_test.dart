@@ -1,9 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:temperatureapp/layers/domain/entities/data/datasources/fetchforecast_datasource.dart';
+import 'package:temperatureapp/layers/domain/entities/data/datasources/remote/fetchforecast_datasource_remote_imp.dart';
 import 'package:temperatureapp/layers/domain/entities/forecast_model.dart';
 import 'package:temperatureapp/layers/domain/entities/repositories/fetchForecast_repository.dart';
 
 class FetchForecastRepositoryImp implements FetchForecastRepository{
+  
+  FetchForecastRepositoryImp(FetchForecastDataSource dataSource);
+
   @override
   Future<ForecastsModelEntity> fetchForecast(String city) async {
     ForecastsModelEntity forecast;
@@ -23,7 +28,10 @@ class FetchForecastRepositoryImp implements FetchForecastRepository{
 
 }
 main(){
-  FetchForecastRepository repository = FetchForecastRepositoryImp();
+      Dio dio = Dio();
+
+  FetchForecastDataSource dataSource = FetchForecastDataSourceExternalImp(dio);
+  FetchForecastRepository repository = FetchForecastRepositoryImp(dataSource);
 
   test('return forecast', (){
     var result = repository.fetchForecast('Texas');

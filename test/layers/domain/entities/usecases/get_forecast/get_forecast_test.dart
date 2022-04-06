@@ -6,6 +6,7 @@ import 'package:temperatureapp/layers/domain/entities/usecases/get_forecast/get_
 import 'package:temperatureapp/layers/domain/entities/usecases/get_forecast/get_forecast_usecase_imp.dart';
 
 class FetchForecastRepositoryImp implements FetchForecastRepository {
+  
   @override
   Future<ForecastsModelEntity> fetchForecast(String city) async {
     ForecastsModelEntity forecast;

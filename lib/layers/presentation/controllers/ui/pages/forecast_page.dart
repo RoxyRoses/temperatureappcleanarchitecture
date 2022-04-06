@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:temperatureapp/layers/domain/entities/forecast_model.dart';
 import 'package:bordered_text/bordered_text.dart';
-
-import '../layers/domain/entities/data/dto/forecast_dto.dart';
+import '../../../../domain/entities/data/dto/forecast_dto.dart';
 
 class ForecastPage extends StatelessWidget {
   final ForecastModelDto forecast;
