@@ -1,18 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:temperatureapp/layers/domain/entities/data/datasources/remote/fetchforecast_datasource_remote_imp.dart';
 import 'package:temperatureapp/layers/domain/entities/forecast_model.dart';
-import 'package:temperatureapp/layers/domain/entities/usecases/get_forecast/get_forecast_usecase.dart';
-import 'package:temperatureapp/layers/domain/entities/usecases/get_forecast/get_forecast_usecase_imp.dart';
-
-import 'usecases/get_forecast/get_forecast_test.dart';
-
 main() {
-  test('expects the entity is not null', () {
-    GetForecastCityUseCase useCase = GetForecastUseCaseImp(FetchForecastRepositoryImp());
-    //entidade não nula
 
-    var result = useCase.fetchForecast('Texas');
-    
-    expect(result, isInstanceOf<Future<ForecastsModelEntity>>());
+  setUpAll((){print('Inicia o suite');});
+
+  tearDownAll((){print('Destruir o suite');});
+
+  test('expects the entity is not null', () {
+    final forecast = ForecastsModelEntity(description: 'sun', name: 'Salvador', forecast: [], temperature: '30C', wind: '30');
+      expect(forecast, isNotNull);
   });
+
 }
