@@ -5,18 +5,13 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
 import 'package:temperatureapp/layers/domain/entities/data/repositories/getforecast_repository_imp.dart';
 import 'package:temperatureapp/layers/domain/entities/forecast_model.dart';
-import 'package:temperatureapp/layers/presentation/controllers/forecast_controller.dart';
 import 'package:temperatureapp/triple/forecastStore.dart';
 
-import '../../../../domain/entities/data/datasources/remote/fetchforecast_datasource_remote_imp.dart';
-import '../../../../domain/entities/usecases/get_forecast/get_forecast_usecase_imp.dart';
 
 class FirstPage extends StatefulWidget {
-
   FirstPage({Key? key}) : super(key: key);
 
-  ForecastController controller = ForecastController(GetForecastUseCaseImp(FetchForecastRepositoryImp(FetchForecastDataSourceExternalImp(Dio()))));
-
+  
   @override
   State<FirstPage> createState() => _FirstPageState();
 }
@@ -25,12 +20,13 @@ class _FirstPageState extends State<FirstPage> {
   final controllerCity = TextEditingController();
   final formKey = GlobalKey<FormState>();
   final store = Modular.get<ForecastStore>();
+  
 
   @override
   void initState() {
     store.observer(
       onState: (state) {
-        if (state.nameDto.isNotEmpty) {
+        if (state.name.isNotEmpty) {
           Modular.to.navigate('/forecast', arguments: state);
         }
       },
@@ -161,10 +157,8 @@ class _FirstPageState extends State<FirstPage> {
                                       ),
                                     ),
                                     onPressed: () async {
-                                      if (formKey.currentState!.validate()) {
+                                      if (formKey.currentState!.validate()){
                                         await store.add(controllerCity.text);
-                                        // Modular.to.navigate('/forecast',
-                                        //     arguments: state.state);
                                       }
                                     },
                                     child: const Text('Confirm'),

@@ -26,45 +26,40 @@ class ForecastModelDto extends ForecastsModelEntity {
     data['wind'] = windDto;
     data['description'] = descriptionDto;
     if (forecastDto != null) {
-      data['forecast'] = forecastDto!.map((v) => v.toJson()).toList();
+      data['forecast'] =
+          forecastDto!.map((v) => ForecastListDto().toJson(v)).toList();
     }
     return data;
   }
 
- ForecastModelDto.fromJson(Map<String, dynamic> json) {
+  ForecastModelDto.fromJson(Map<String, dynamic> json) {
     temperatureDto = json['temperature'];
     windDto = json['wind'];
     descriptionDto = json['description'];
     if (json['forecast'] != null) {
       forecastDto = <Forecast>[];
       json['forecast'].forEach((v) {
-        forecastDto!.add(Forecast.fromJson(v));
+        forecastDto!.add(ForecastListDto.fromJson(v));
       });
     }
   }
 }
 
 class ForecastListDto {
-  String dayDto = '';
-  String temperatureDto = '';
-  String windDto = '';
+  ForecastListDto();
 
-  ForecastListDto(
-      {required this.dayDto,
-      required this.temperatureDto,
-      required this.windDto});
-
-    ForecastListDto.fromJson(Map<String, dynamic> json) {
-    dayDto = json['day'];
-    temperatureDto = json['temperature'];
-    windDto = json['wind'];
+  static Forecast fromJson(Map<String, dynamic> json) {
+    final dayDto = json['day'];
+    final temperatureDto = json['temperature'];
+    final windDto = json['wind'];
+    return Forecast(day: dayDto, temperature: temperatureDto, wind: windDto);
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson(Forecast forecast) {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['day'] = dayDto;
-    data['temperature'] = temperatureDto;
-    data['wind'] = windDto;
+    data['day'] = forecast.day;
+    data['temperature'] = forecast.temperature;
+    data['wind'] = forecast.wind;
     return data;
   }
 }

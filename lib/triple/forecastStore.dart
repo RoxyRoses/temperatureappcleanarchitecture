@@ -1,17 +1,17 @@
 import 'package:mobx_triple/mobx_triple.dart';
-import 'package:temperatureapp/layers/domain/entities/data/repositories/getforecast_repository_imp.dart';
+import 'package:temperatureapp/layers/domain/entities/forecast_model.dart';
 
-import '../layers/domain/entities/data/dto/forecast_dto.dart';
+import '../layers/domain/entities/usecases/get_forecast/get_forecast_usecase_imp.dart';
 
-class ForecastStore extends MobXStore<Exception, ForecastModelDto> {
-  final FetchForecastRepositoryImp repository;
-  ForecastStore(this.repository) : super(ForecastModelDto(descriptionDto: '', forecastDto: [], nameDto: '', temperatureDto: '', windDto: ''));
+class ForecastStore extends MobXStore<Exception, ForecastsModelEntity> {
+  final GetForecastUseCaseImp usecase;
+  ForecastStore(this.usecase) : super(ForecastsModelEntity());
 
   Future<void> add(String name) async {
     try {
       setLoading(true);
       await Future.delayed(const Duration(seconds: 2));
-     ForecastModelDto result = await repository.fetchForecast(name);
+     ForecastsModelEntity result = await usecase.fetchForecast(name);
      update(result);
       setLoading(false);
     } catch (e) {

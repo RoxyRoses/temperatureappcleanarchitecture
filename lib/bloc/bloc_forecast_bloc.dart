@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:temperatureapp/layers/domain/entities/data/repositories/getforecast_repository_imp.dart';
 
+import '../layers/domain/entities/data/dto/forecast_dto.dart';
 import '../layers/domain/entities/forecast_model.dart';
 
 part 'bloc_forecast_event.dart';
@@ -42,7 +43,7 @@ Future<ForecastsModelEntity> fetchForecast(String model) async {
           model.replaceAll(' ', '')),
     );
     await Future.delayed(const Duration(seconds: 2));
-    forecast = ForecastsModelEntity.fromJson(jsonDecode(response.body));
+    forecast = ForecastModelDto.fromJson(jsonDecode(response.body));
     forecast.name = model[0].toUpperCase() + model.substring(1);
     return forecast;
   } on Exception catch (_) {
