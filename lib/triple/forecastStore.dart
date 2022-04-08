@@ -1,10 +1,11 @@
 import 'package:mobx_triple/mobx_triple.dart';
 import 'package:temperatureapp/layers/domain/entities/forecast_model.dart';
 
-import '../layers/domain/entities/usecases/get_forecast/get_forecast_usecase_imp.dart';
+import '../layers/domain/entities/usecases/get_forecast/get_forecast_usecase.dart';
+
 
 class ForecastStore extends MobXStore<Exception, ForecastsModelEntity> {
-  final GetForecastUseCaseImp usecase;
+  final GetForecastCityUseCase usecase;
   ForecastStore(this.usecase) : super(ForecastsModelEntity());
 
   Future<void> add(String name) async {
@@ -18,4 +19,7 @@ class ForecastStore extends MobXStore<Exception, ForecastsModelEntity> {
       setError(Exception(e));
     }
   }
+}
+
+class GetForecastUseCase {
 }

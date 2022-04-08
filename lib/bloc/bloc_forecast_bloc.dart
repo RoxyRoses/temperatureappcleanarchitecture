@@ -6,15 +6,17 @@ import 'package:temperatureapp/layers/domain/entities/data/repositories/getforec
 
 import '../layers/domain/entities/data/dto/forecast_dto.dart';
 import '../layers/domain/entities/forecast_model.dart';
+import '../layers/domain/entities/repositories/fetchForecast_repository.dart';
 
 part 'bloc_forecast_event.dart';
 part 'bloc_forecast_state.dart';
 
 class BlocForecastBloc extends Bloc<BlocForecastEvent, BlocForecastState> {
-  final FetchForecastRepositoryImp repository;
+  final FetchForecastRepository repository;
 
   BlocForecastBloc(this.repository) : super(BlocForecastInitial()) {
     on<SearchForecastEvent>((event, emit) async {
+      emit(LoadForecastState());
         try {
           final forecast = await repository.fetchForecast(event.name);
           if (forecast == null) {

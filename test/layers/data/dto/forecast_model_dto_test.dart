@@ -3,16 +3,21 @@ import 'package:temperatureapp/layers/domain/entities/data/dto/forecast_dto.dart
 import 'package:temperatureapp/layers/domain/entities/forecast_model.dart';
 
 main() {
-  
-  setUpAll((){print('Inicia o suite');});
+  setUpAll(() {
+    print('Inicia o suite');
+  });
 
-  tearDownAll((){print('Destruir o suite');});
-
-  ForecastsModelEntity entity;
+  tearDownAll(() {
+    print('Destruir o suite');
+  });
 
   final ForecastModelDto forecastdto = ForecastModelDto(
       descriptionDto: 'Clear',
-      forecastDto: [],
+      forecastDto: <Forecast>[
+        Forecast(day: "1", temperature: "30 °C", wind: "8 km/h"),
+        Forecast(day: "2", temperature: "+27 °C", wind: "6 km/h"),
+        Forecast(day: "3", temperature: " °C", wind: "9 km/h"),
+      ],
       nameDto: '',
       temperatureDto: '+24 °C',
       windDto: '1 km/h');
@@ -32,8 +37,8 @@ main() {
     test('object should be turned into json', (() {
       var entity = forecastdto.toJson();
 
-      expect(entity, equals((entity))); // change to json after populate forecastdto list
-    } ));
+      expect(entity, equals((json))); 
+    }));
 
     test('json should have turned into object', (() {
       var entity = ForecastModelDto.fromJson(json);

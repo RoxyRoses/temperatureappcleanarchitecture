@@ -15,6 +15,11 @@ class StartForecastState extends BlocForecastState{
   List<Object>? get props => null;
 }
 
+class LoadForecastState extends BlocForecastState{
+  @override
+  List<Object>? get props => null;
+}
+
 class SuccessForecastState extends BlocForecastState{
 final ForecastsModelEntity forecast;
 

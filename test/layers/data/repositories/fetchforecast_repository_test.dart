@@ -1,42 +1,31 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:temperatureapp/layers/domain/entities/data/datasources/fetchforecast_datasource.dart';
-import 'package:temperatureapp/layers/domain/entities/data/datasources/remote/fetchforecast_datasource_remote_imp.dart';
 import 'package:temperatureapp/layers/domain/entities/data/dto/forecast_dto.dart';
+import 'package:temperatureapp/layers/domain/entities/data/repositories/getforecast_repository_imp.dart';
 import 'package:temperatureapp/layers/domain/entities/forecast_model.dart';
 import 'package:temperatureapp/layers/domain/entities/repositories/fetchForecast_repository.dart';
 
-class FetchForecastRepositoryImp implements FetchForecastRepository{
-  
-  FetchForecastRepositoryImp(FetchForecastDataSource dataSource);
+class DataSourceMock extends Mock implements FetchForecastDataSource{}
 
-  @override
-  Future<ForecastsModelEntity> fetchForecast(String city) async {
-    ForecastsModelEntity forecast;
-    Dio dio = Dio();
-    try {
-      final response = await dio.get('/weather/' +
-            city.replaceAll(' ', ''),
-      );
-      await Future.delayed(const Duration(seconds: 2));
-      forecast = ForecastModelDto.fromJson(response.data);
-      forecast.name = city[0].toUpperCase() + city.substring(1);
-      return forecast;
-    } on Exception catch (_) {
-      throw Exception('Failed to load forecast');
-    }
-  }
+main() {
 
-}
-main(){
-      Dio dio = Dio();
-
-  FetchForecastDataSource dataSource = FetchForecastDataSourceExternalImp(dio);
+  FetchForecastDataSource dataSource = DataSourceMock();
   FetchForecastRepository repository = FetchForecastRepositoryImp(dataSource);
 
-  test('return forecast', (){
-    var result = repository.fetchForecast('Texas');
+  test('return forecast', () async {
+    when(() => dataSource.fetch(any())).thenAnswer((invocation) async => ForecastModelDto(temperatureDto: '', windDto: '', descriptionDto: '', nameDto: '', forecastDto: []));
+    var result = await repository.fetchForecast('Texas');
 
     expect(result, isNotNull);
+    expect(result, isA<ForecastsModelEntity>());
+  });
+
+  test('Fetch not avaiable', () async {
+    when(() => dataSource.fetch(any())).thenThrow(Exception());
+    var result = repository.fetchForecast('Texas');
+
+    expect(result, throwsA(isA<Exception>()));
   });
 }
